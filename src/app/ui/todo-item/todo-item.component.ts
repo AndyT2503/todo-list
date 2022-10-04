@@ -1,6 +1,7 @@
 import { StorageService } from './../../services/storage.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TodoItem } from 'src/app/models/todo-item.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-item[item]',
@@ -12,7 +13,8 @@ export class TodoItemComponent implements OnInit {
   isEdit = false;
   newContent!: string;
   constructor(
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -21,5 +23,13 @@ export class TodoItemComponent implements OnInit {
 
   onDelete(): void {
     this.storageService.deleteItem(this.item.id);
+  }
+
+  onEdit(): void {
+    this.router.navigate(['/form'], {
+      queryParams: {
+        id: this.item.id
+      }
+    })
   }
 }

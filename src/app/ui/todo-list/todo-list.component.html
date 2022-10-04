@@ -1,0 +1,4 @@
+<button routerLink="/form">Add New Task</button>
+<ng-container *ngFor="let item of todoItemList$ | async">
+  <app-todo-item [item]="item"></app-todo-item>
+</ng-container>

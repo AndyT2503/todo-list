@@ -51,5 +51,16 @@ export class StorageService {
     }
   }
 
+  getTodoItemById(id: number): TodoItem {
+    const currentTodoList = this.todoItemList$.getValue();
+    return currentTodoList.find(x => x.id === id)!;
+  }
 
+  updateItem(id: number, updateContent: string): void {
+    const currentTodoList = this.todoItemList$.getValue();
+    const updateItem = currentTodoList.find(x => x.id === id)!;
+    updateItem.content = updateContent;
+    this.todoItemList$.next(currentTodoList);
+    this.cacheTodoItemList = currentTodoList;
+  }
 }
